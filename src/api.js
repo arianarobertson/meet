@@ -81,6 +81,7 @@ export const getAccessToken = async () => {
         await localStorage.removeItem("access_token");
         const searchParams = new URLSearchParams(window.location.search);
         const code = await searchParams.get("code");
+        console.log(code, searchParams, 'getAccessToken');
         if (!code) {
             const response = await fetch(
                 "https://9kga4n50dj.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"

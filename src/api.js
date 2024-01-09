@@ -42,9 +42,8 @@ const removeQuery = () => {
 // getToken  function
 const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
-    console.log(encodeCode, code);
     const response = await fetch(
-        'https://9l2n3s5udh.execute-api.eu-central-1.amazonaws.com/dev/api/token/' + encodeCode
+        'https://9kga4n50dj.execute-api.eu-central-1.amazonaws.com/dev/api/token/' + encodeCode
     );
     const { access_token } = await response.json();
     access_token && localStorage.setItem("access_token", access_token);
@@ -81,7 +80,6 @@ export const getAccessToken = async () => {
         await localStorage.removeItem("access_token");
         const searchParams = new URLSearchParams(window.location.search);
         const code = await searchParams.get("code");
-        console.log(code, searchParams, 'getAccessToken');
         if (!code) {
             const response = await fetch(
                 "https://9kga4n50dj.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"

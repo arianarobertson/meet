@@ -1,18 +1,17 @@
-const NumberOfEvents = ({ setCurrentNOE }) => {
+import React, { useState } from "react";
+
+const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
     const handleInputChanged = (event) => {
         const value = event.target.value;
 
-        let validationError = '';
-
-        if (isNaN(value)) {
-            validationError = 'value is not a number';
-        } else if (value > 50) {
-            validationError = 'maximum value is 50';
-        } else if (value <= 0) {
-            validationError = 'minimum value is 1';
-        }
-
-        if (!validationError) {
+        setCurrentNOE(value);
+        let errorText;
+        if (isNaN(value) || value <= 0) {
+            errorText = "only positive number are valid";
+            setErrorAlert(errorText);
+        } else {
+            errorText = "";
+            setErrorAlert(errorText);
             setCurrentNOE(value);
         }
     };

@@ -5,11 +5,16 @@ import { useState, useEffect } from 'react';
 import { extractLocations, getEvents } from './api';
 import './App.css';
 
+import { ErrorAlert, InfoAlert } from "./components/Alert";
+
 const App = () => {
   const [events, setEvents] = useState([]);
   const [currentNOE, setCurrentNOE] = useState(36);
   const [allLocations, setAllLocations] = useState([]);
   const [currentCity, setCurrentCity] = useState('See all cities');
+  const [infoAlert, setInfoAlert] = useState("");
+  const [errorAlert, setErrorAlert] = useState("");
+  // const [warningAlert, setWarningAlert] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,12 +32,25 @@ const App = () => {
 
   return (
     <div className="App">
+      <div className="alerts-container">
+        {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
+        {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
+        {/* {warningAlert.length ? <WarningAlert text={warningAlert} /> : null} */}
+      </div>
+      <div className="title-box">
+        <p className="title">Meet App </p>
+        <p className="subtitle">
+          Search tech events near you, using Careerfoundry's calendar!
+        </p>
+      </div>
       <NumberOfEvents
         setCurrentNOE={setCurrentNOE}
+        setErrorAlert={setErrorAlert}
       ></NumberOfEvents>
       <CitySearch
         allLocations={allLocations}
         setCurrentCity={setCurrentCity}
+        setInfoAlert={setInfoAlert}
       ></CitySearch>
       <EventList events={events}></EventList>
     </div>
